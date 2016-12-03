@@ -69,3 +69,27 @@ defmodule DividenConquer do
 	end
 
 end
+
+defmodule SimpleSpawn do
+ @moduledoc """
+ This is a simple module that spawns a new handler that keeps on listening, with a new pid.
+ In the main process, you can send a message to that pid and it will echo that back.
+ """
+ 
+ def recv do
+ 	receive do
+ 		msg -> 
+ 			IO.puts "received a msg"
+ 			IO.inspect msg
+ 	end
+ 	recv
+ end
+ 
+ def init do
+ 	spawn(fn -> recv end)
+ end
+ 
+ def psend(pid, msg) do
+ 	send pid, msg
+ end
+end
