@@ -30,9 +30,36 @@ defmodule FibTail do
     @moduledoc """
     the non-tail recursive way
     """
-    def fib(0) do 0 end
-    def fib(1) do 1 end
-    def fib(n) do fib(n-1) + fib(n-2) end 
+    def fib(0, cache), do: {0, cache}
+    def fib(1, cache), do: {1, cache}
+    
+    def fib(n, %{}=cache) when is_integer(n) do
+        case Map.get(cache, n) do
+            nil -> 
+                {l, cache} = fib(n-1, cache)
+                cache = Map.put(cache, n-1, l)
+                {r, cache} = fib(n-2, cache)
+                cache = Map.put(cache, n-2, r)
+                {l+r, cache}
+            res when is_integer(res) -> {res, cache}
+        end
+    end
+    def fib(n) do
+        {res, _} = fib(n, %{})
+        res
+    end
+    
+    
 end
 
-FibTail.fib 5
+IO.inspect FibTail.fib 0
+IO.inspect FibTail.fib 1
+IO.inspect FibTail.fib 2
+IO.inspect FibTail.fib 3
+IO.inspect FibTail.fib 4
+IO.inspect FibTail.fib 5
+IO.inspect FibTail.fib 6
+IO.inspect FibTail.fib 7
+IO.inspect FibTail.fib 20
+IO.inspect FibTail.fib 100
+IO.inspect FibTail.fib 500
