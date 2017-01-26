@@ -30,9 +30,7 @@ defmodule FibTail do
     @moduledoc """
     the non-tail recursive way
     """
-    def fib(0, cache), do: {0, cache}
-    def fib(1, cache), do: {1, cache}
-    
+    def fib(n, %{}=cache) when n <= 1, do: {n, cache}
     def fib(n, %{}=cache) when is_integer(n) do
         case Map.get(cache, n) do
             nil -> 
