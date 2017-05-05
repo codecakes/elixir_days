@@ -36,7 +36,7 @@ defmodule FibTail do
             nil -> 
                 {l, cache} = fib(n-1, cache)
                 cache = Map.put(cache, n-1, l)
-                {r, cache} = fib(n-2, cache)
+                {r, cache} = f`ib(n-2, cache)
                 cache = Map.put(cache, n-2, r)
                 {l+r, cache}
             res when is_integer(res) -> {res, cache}
