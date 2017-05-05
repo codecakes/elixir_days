@@ -1,4 +1,8 @@
 defmodule Dyson do
+    @moduledoc """
+    least positive n-parasitic number in Base 10 number system 
+    """
+
     @doc """
     in base 10
     """
