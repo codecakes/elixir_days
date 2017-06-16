@@ -9,7 +9,7 @@ defmodule Stackdelivery.Stack do
 
   def start_link(stack_name, opts \\ []) do
     # IO.inspect state, label: "starting with inputs"
-    Logger.info fn-> {"starting with state: #{stack_name} | opts: #{opts}", [metadata: {stack_name, opts}]} end
+    # Logger.info fn-> {"starting with state: #{stack_name} | opts: #{opts}", [metadata: {stack_name, opts}]} end
     {name, opts} = Keyword.pop(opts, :name, stack_name || "stack_#{Time.utc_now |> Time.to_string}")
     GenServer.start_link(__MODULE__, [], opts ++ [name: via_tuple(name)])
   end
