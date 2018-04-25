@@ -42,4 +42,35 @@ defmodule Solution do
     end
 end
 
-Solution.run
+# Solution.run
+
+defmodule BetterSolution do
+    
+    def is_prime(n, n_sqrt, lo \\ 2)
+    def is_prime(_, n_sqrt, hi) when hi > n_sqrt, do: []
+    def is_prime(n, n_sqrt, lo) do
+        case rem(n, lo) do
+            0 -> [lo] ++ is_prime(n, n_sqrt, lo + 1)
+            _ -> is_prime(n, n_sqrt, lo + 1)
+        end
+    end
+    
+    def find_prime(1), do: IO.puts "Not prime"
+    def find_prime(2), do: IO.puts "Prime"   
+    def find_prime(n) do
+        n_sqrt = n |> :math.sqrt |> :math.ceil |> round
+        case [n] ++ is_prime(n, n_sqrt) ++ [1] do
+            [n, 1] -> IO.puts "Prime"
+            _ -> IO.puts "Not prime"
+        end
+    end
+    
+    def run do
+        r = IO.gets("") |> String.trim |> String.to_integer 
+        Enum.map(Range.new(1, r), fn(_) -> 
+            IO.gets("") |> String.trim |> String.to_integer |> find_prime
+        end)
+    end
+end
+
+BetterSolution.run
